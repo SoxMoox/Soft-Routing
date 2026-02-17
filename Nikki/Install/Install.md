@@ -67,3 +67,28 @@ wget -O - https://github.com/nikkinikki-org/OpenWrt-nikki/raw/refs/heads/main/in
 
 ## 卸载并重置
 
+
+
+```
+wget -O - https://github.com/nikkinikki-org/OpenWrt-nikki/raw/refs/heads/main/uninstall.sh | ash
+```
+
+
+
+## 如何使用
+
+
+
+查看 [Wiki](https://github.com/nikkinikki-org/OpenWrt-nikki/wiki)
+
+## 如何工作
+
+
+
+1. 混入并更新配置文件。
+2. 启动 Mihomo。
+3. 设置定时重启。
+4. 配置 IP 规则/路由。
+5. 生成防火墙配置并应用。
+
+注意上述步骤可能因配置而变动。
