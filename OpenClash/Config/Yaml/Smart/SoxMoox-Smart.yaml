@@ -1,6 +1,6 @@
 proxy-providers:
   优质服务商:
-    url: "https://bava8u2znaj6bdzzjnfb.wgetcloud.online/link/75d56d1a-3b8a-360d-86c3-6b6cc52b3e9a"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
@@ -13,7 +13,7 @@ proxy-providers:
       #additional-suffix: "| 后缀"
 
   备用服务商:
-    url: "https://807392bc0522d36bf33b9f91d2435bca.r7kq-2nfa-hg9x-bt4m-y3pw.sbs/s?q=6e656b97&t=807392bc0522d36bf33b9f91d2435bca.jpg"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
@@ -26,7 +26,7 @@ proxy-providers:
       #additional-suffix: "| 后缀"
 
   应急服务商:
-    url: "https://kuajingnote-api01.trafficmanager.net/link/lLhOJNlCeLmtqKVD?clash=1"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
