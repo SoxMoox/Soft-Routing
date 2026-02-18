@@ -1,6 +1,6 @@
 proxy-providers:
   优质服务商:
-    url: "机场订阅"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
@@ -13,7 +13,7 @@ proxy-providers:
       #additional-suffix: "| 后缀"
 
   备用服务商:
-    url: "机场订阅"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
@@ -26,7 +26,7 @@ proxy-providers:
       #additional-suffix: "| 后缀"
 
   应急服务商:
-    url: "机场订阅"
+    url: "机场订阅地址"
     type: http
     interval: 86400
     health-check:
@@ -112,33 +112,15 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
-  smart-dns: true
-
-  fake-ip-filter:
-    - "rule-set:Private,CN"
-    - "*.lan"
-    - "*.local"
-    - "*.localhost"
-    - "*.home.arpa"
-    - "*.ntp.org"
-    - "*.msftconnecttest.com"
-    - "*.msftncsi.com"
-    - "*.apple.com"
-    - "*.windowsupdate.com"
-    - "*.cn"
-    
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
-    
   proxy-server-nameserver:
-    - https://dns.cloudflare.com/dns-query
-    - https://dns.google/dns-query
-
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
-
+    - 223.5.5.5
+    - 119.29.29.29
   fallback:
     - https://dns.cloudflare.com/dns-query
     - https://dns.google/dns-query
@@ -146,42 +128,43 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
 
 proxy-groups:
-  - {name: 默认选择, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Home-1.png, proxies: [香港故转, 台湾节点, 美国节点, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
+  - {name: 默认选择, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Home-1.png, proxies: [香港故转, 台湾节点, 美国节点, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
 
+  - {name: OpenAI,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/AI-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: AI,        type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/AI-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Gemini,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Gemini-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Speedtest, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Speedtest-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: YouTube,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/YouTube-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Twitter,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Twitter-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Telegram,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Telegram-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Facebook,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Facebook-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Instagram, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Instagram-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: WhatsApp,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/WhatsApp-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: GitHub,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Github-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Pixiv,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Pixiv-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: TikTok,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/TikTok-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Steam,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Steam-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Netflix,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Netflix-3.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Microsoft, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Microsoft-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: PayPal,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/PayPal-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: ASUS,      type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Asus-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: GoogleFCM, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Gmail-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Google,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Google-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Apple,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Apple-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
+  - {name: Samsung,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Samsung-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
 
-  - {name: OpenAI,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/AI-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: AI,        type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/AI-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Gemini,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Gemini-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Speedtest, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Speedtest-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: YouTube,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/YouTube-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Twitter,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Twitter-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Telegram,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Telegram-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Facebook,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Facebook-2.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Instagram, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Instagram-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: WhatsApp,  type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/WhatsApp-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: GitHub,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Github-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Pixiv,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Pixiv-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: TikTok,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/TikTok-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Steam,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Steam-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Netflix,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Netflix-3.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Microsoft, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Microsoft-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: PayPal,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/PayPal-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: ASUS,      type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Asus-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: GoogleFCM, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Gmail-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Google,    type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Google-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Apple,     type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Apple-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-  - {name: Samsung,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Samsung-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
-
-  - {name: 漏网之鱼,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Match-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 新加坡故转, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新家坡节点, 直接连接, 全部节点]}
+  - {name: 漏网之鱼,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Match-1.png, proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 新加坡智能, 香港节点, 台湾节点, 美国节点, 韩国节点, 日本节点, 新加坡节点, 直接连接, 全部节点]}
 
   - {name: 香港节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/HongKong-3.png, include-all: true, filter: "(?i)(港|HK|HongKong|hong)"}
   - {name: 台湾节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/TaiWan-3.png, include-all: true, filter: "(?i)(台|TW|TaiWan)"}
   - {name: 美国节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/America-3.png, include-all: true, filter: "(?i)(美|US|America|States)"}
   - {name: 韩国节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Korea-3.png, include-all: true, filter: "(?i)(韩|KR|Korea)"}
   - {name: 日本节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Japan-3.png, include-all: true, filter: "(?i)(JP|Japan|(?<!尼)日)"}
-  - {name: 新家坡节点, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Singapore-3.png, include-all: true, filter: "(?i)(新加坡|SG|hong|Singapore)"}
+  - {name: 新加坡节点, type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Singapore-3.png, include-all: true, filter: "(?i)(新加坡|SG|hong|Singapore)"}
 
   - {name: 香港故转,   type: fallback, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Fault-1.png, include-all: true, interval: 300, filter: "(?i)(港|HK|HongKong|hong)"}
   - {name: 台湾故转,   type: fallback, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Fault-1.png, include-all: true, interval: 300, filter: "(?i)(台|TW|TaiWan)"}
@@ -196,13 +179,19 @@ proxy-groups:
   - {name: 韩国智能,   type: smart, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Korea-1.png, uselightgbm: true, collectdata: true, include-all: true, interval: 300, policy-priority: "优:2;备:1.2;急:0.2", filter: "(?i)(韩|KR|Korea)"}
   - {name: 日本智能,   type: smart, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Japan-1.png, uselightgbm: true, collectdata: true, include-all: true, interval: 300, policy-priority: "优:2;备:1.2;急:0.2", filter: "(?i)(JP|Japan|(?<!尼)日)"}
   - {name: 新加坡智能, type: smart, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Singapore-1.png, uselightgbm: true, collectdata: true, include-all: true, interval: 300, policy-priority: "优:2;备:1.2;急:0.2", filter: "(?i)(新加坡|SG|hong|Singapore)"}
+
   - {name: 自动选择,   type: url-test, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Auto-1.png, url: 'http://www.gstatic.com/generate_204', include-all: true, interval: 300, tolerance: 50, filter: "(?i)^(?!.*(中国直连|官网|剩余|到期|异常|失败|GB|date|reset|0.5)).*"}
+
   - {name: 国外流量,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/icons/guowai.png, proxies: [默认选择, 直接连接, 全部节点]}
   - {name: 国内流量,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/icons/guonei.png, proxies: [直接连接, 默认选择, 全部节点]}
+
   - {name: 直接连接,   type: select, proxies: [DIRECT], hidden: true, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/China-1.png}
   - {name: 全部节点,   type: select, icon: https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/All-3.png, include-all: true}
 
 rules:
+  - DOMAIN-SUFFIX,dns.cloudflare.com,DIRECT
+  - DOMAIN-SUFFIX,dns.google,DIRECT
+
   - RULE-SET,SamsungCn,国内流量
   - RULE-SET,AppleCn,国内流量
   - RULE-SET,DouYin,国内流量
@@ -233,10 +222,6 @@ rules:
   - RULE-SET,TelegramIP,Telegram
   - RULE-SET,NetflixIP,Netflix
   - RULE-SET,GoogleIP,Google,no-resolve
-
-  - RULE-SET,AppleCn,国内流量
-  - RULE-SET,SamsungCn,国内流量
-  - RULE-SET,DouYin,国内流量
 
   - RULE-SET,PrivateIP,国内流量
   - RULE-SET,Private,国内流量
