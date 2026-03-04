@@ -1,39 +1,39 @@
 proxy-providers:
   优质服务商:
-    url: "机场订阅地址"
+    url: "订阅地址"
     type: http
     interval: 86400
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxy: 直连
+    proxies: [{ name: 直连, type: direct, udp: true }]
     override:
       additional-prefix: "优 |"
       #additional-suffix: "| 后缀"
 
   备用服务商:
-    url: "机场订阅地址"
+    url: "订阅地址"
     type: http
     interval: 86400
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxy: 直连
+    proxies: [{ name: 直连, type: direct, udp: true }]
     override:
       additional-prefix: "备 |"
       #additional-suffix: "| 后缀"
 
   应急服务商:
-    url: "机场订阅地址"
+    url: "订阅地址"
     type: http
     interval: 86400
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxy: 直连
+    proxies: [{ name: 直连, type: direct, udp: true }]
     override:
       additional-prefix: "急 |"
       #additional-suffix: "| 后缀"
@@ -112,15 +112,49 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
+  smart-dns: true
+  fake-ip-filter:
+    - "*.wgetcloud.org"
+    - "*.ssrdog.com"
+    - "*.ikuajing01.com"
+    - "rule-set:Private,CN"
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.local"
+    - "*.test"
+    - "*.home.arpa"
+    - "*.ntp.org"
+    - "*.alipay.com"
+    - "*.baidu.com"
+    - "*.bilibili.com"
+    - "*.jd.com"
+    - "*.qq.com"
+    - "*.weixin.qq.com"
+    - "*.tencent.com"
+    - "*.mi.com"
+    - "*.apple.com"
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    - "*.windowsupdate.com"
+    - "*.360.cn"
+    - "*.cn"
+
   default-nameserver:
     - 223.5.5.5
-    - 119.29.29.29
+    - 119.119.119.119
+    - https://223.5.5.5/dns-query
+    
   proxy-server-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
   nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
   fallback:
     - https://dns.cloudflare.com/dns-query
     - https://dns.google/dns-query
