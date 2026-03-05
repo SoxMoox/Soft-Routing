@@ -25,7 +25,7 @@
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxies: [{ name: 直连, type: direct, udp: true }]
+    proxy: 直连
     override:
       additional-prefix: "优 |"
       #additional-suffix: "| 后缀"
@@ -38,7 +38,7 @@
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxies: [{ name: 直连, type: direct, udp: true }]
+    proxy: 直连
     override:
       additional-prefix: "备 |"
       #additional-suffix: "| 后缀"
@@ -52,14 +52,12 @@
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxies: [{ name: 直连, type: direct, udp: true }]
+    proxy: 直连
     override:
       additional-prefix: "急 |"
       #additional-suffix: "| 后缀"
 
-proxies:
-  - name: "直连"
-    type: direct
-    udp: true
+proxies: [{ name: 直连, type: direct, udp: true }]
 
 port: 7890
 socks-port: 7891
