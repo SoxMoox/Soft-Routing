@@ -1,0 +1,510 @@
+proxy-providers:
+  优质服务商:
+    url: "订阅链接"
+    type: http
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 直连
+    # override:
+    #   additional-prefix: "优 |"
+    #   additional-suffix: "| 后缀"
+
+proxies:
+  - name: "直连"
+    type: direct
+    udp: true
+
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+
+allow-lan: true
+bind-address: "*"
+ipv6: false
+mode: rule
+unified-delay: true
+tcp-concurrent: true
+log-level: error
+find-process-mode: 'off'
+
+keep-alive-idle: 600
+keep-alive-interval: 15
+disable-keep-alive: false
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+geodata-mode: true
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 48
+geo-url:
+  geosite: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/release/geosite.dat"
+  geoip:   "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/release/geoip.dat"
+  mmdb:    "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/release/country.mmdb"
+  asn:     "https://github.soxmoox.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+
+external-controller: 0.0.0.0:9090
+secret: "SoxMoox"
+external-ui: "/etc/openclash/run"
+external-ui-name: zashboard
+external-ui-url: "https://github.soxmoox.com/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+  skip-domain:
+    - "+.baidu.com"
+    - "+.push.apple.com"
+    - "+.market.xiaomi.com"
+    - "+.mijia.com"
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack: ["any:53", "tcp://any:53"]
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  interface-autodetect-interval: 30
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  prefer-h3: true
+  use-system-hosts: true
+  cache-algorithm: arc
+  fake-ip-filter:
+    - "rule-set:FakeipFilter"
+    - "*.lan"
+    - "*.local"
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    - "localhost.ptlogin2.qq.com"
+  default-nameserver:
+    - tls://223.5.5.5
+    - tls://114.114.114.114
+  proxy-server-nameserver:
+    - tls://223.5.5.5
+    - tls://114.114.114.114
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - https://dns.pub/dns-query
+  nameserver-policy:
+    "geosite:cn":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+  fallback:
+    - 'https://1.1.1.1/dns-query#默认选择'
+    - 'tls://1.1.1.1:853#默认选择'
+    - 'https://8.8.8.8/dns-query#默认选择'
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+
+proxy-groups:
+  - name: "默认选择"
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Static.png
+    proxies: [自动选择, 故障转移, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: 故障转移
+    type: fallback
+    interval: 180
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Fault-1.png
+    lazy: true
+    url: 'https://www.google.com/generate_204'
+    proxies: [香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 狮城智能]
+
+  - name: Ai
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/AI-2.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Apple
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Apple-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: GitHub
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Github-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Google
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Google-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: GoogleFCM
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Gmail-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Microsoft
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Microsoft-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Pixiv
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Pixiv-1.png
+    proxies: [默认选择, 自动选择, 日本智能, 台湾智能, 香港智能, 韩国智能, 美国智能, 狮城智能, DIRECT]
+
+  - name: PayPal
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/PayPal-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Samsung
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Samsung-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Steam
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Steam-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 香港智能, 台湾智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Twitter
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Twitter-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: Telegram
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Telegram-2.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: TikTok
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/TikTok-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+  - name: YouTube
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/YouTube-1.png
+    proxies: [默认选择, 自动选择, 美国智能, 台湾智能, 香港智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+
+  - name: 香港智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/HongKong-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "(?i)(港|HK|HongKong|hong)"
+
+  - name: 台湾智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/TaiWan-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "(?i)(台|TW|TaiWan)"
+
+  - name: 美国智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/America-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "(?i)(美|US|America|States)"
+
+  - name: 韩国智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Korea-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "(?i)(韩|KR|Korea)"
+
+  - name: 日本智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Japan-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "^(?=.*(JP|Japan|日))(?!.*(尼|套餐|到期|重置)).*$"
+
+  - name: 狮城智能
+    type: smart
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Singapore-1.png
+    uselightgbm: false
+    collectdata: false
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    filter: "(?i)(新加坡|SG|Singapore)"
+
+  - name: 自动选择
+    type: url-test
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Auto-1.png
+    url: 'https://www.gstatic.com/generate_204'
+    include-all: true
+    exclude-type: direct
+    interval: 180
+    tolerance: 30
+    filter: "(?i)^(?!.*(中国直连|官网|剩余|到期|异常|失败|GB|date|reset|0.5|体验|试用|临时|测试)).*"
+
+  - name: 漏网之鱼
+    type: select
+    icon: https://github.soxmoox.com/https://raw.githubusercontent.com/SoxMoox/icon/refs/heads/main/png/Match-1.png
+    proxies: [默认选择, 自动选择, 香港智能, 台湾智能, 美国智能, 韩国智能, 日本智能, 狮城智能, DIRECT]
+
+rules:
+  - RULE-SET,PrivateIP,DIRECT,no-resolve
+  - RULE-SET,Private,DIRECT
+  - RULE-SET,AppleCn,DIRECT
+  - RULE-SET,SamsungCn,DIRECT
+  - RULE-SET,DouYin,DIRECT
+
+  - RULE-SET,Ai,Ai
+  - RULE-SET,GitHub,GitHub
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,X,Twitter
+  - RULE-SET,Twitter,Twitter
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,GoogleFCM,GoogleFCM
+  - RULE-SET,Google,Google
+  - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,Apple,Apple
+  - RULE-SET,Samsung,Samsung
+  - RULE-SET,Steam,Steam
+  - RULE-SET,Pixiv,Pixiv
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,PayPal,PayPal
+
+  - RULE-SET,TelegramIP,Telegram,no-resolve
+  - RULE-SET,TwitterIP,Twitter,no-resolve
+  - RULE-SET,GoogleIP,Google,no-resolve
+
+  - RULE-SET,CNIP,DIRECT
+  - RULE-SET,CN,DIRECT
+
+  - RULE-SET,GFW,默认选择
+  - RULE-SET,Proxy,默认选择
+  - RULE-SET,Geolocation-!cn,默认选择
+  - MATCH,漏网之鱼
+
+experimental:
+  ignore-resolve-fail: true
+
+rule-anchor:
+  ip:     &ip      {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  domain: &domain  {type: http, interval: 86400, behavior: domain, format: mrs}
+  class:  &class   {type: http, interval: 86400, behavior: classical, format: text}
+
+rule-providers:
+  FakeipFilter:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"
+  Private:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+  Proxy:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geosite/proxy.mrs"
+  Ai:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
+  AppleCn:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple@cn.mrs"
+  Apple:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
+  CN:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+  DouYin:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/douyin.mrs"
+  GitHub:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
+  GoogleFCM:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/googlefcm.mrs"
+  Google:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+  GFW:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"
+  Geolocation-!cn:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
+  Microsoft:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"
+  Pixiv:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/pixiv.mrs"
+  PayPal:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"
+  Steam:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"
+  Samsung:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/samsung.mrs"
+  SamsungCn:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/samsung@cn.mrs"
+  Twitter:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
+  Telegram:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+  TikTok:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"
+  YouTube:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+  X:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/x.mrs"
+  AppleIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"
+  CNIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/cn.mrs"
+  GoogleIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/google.mrs"
+  PrivateIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
+  TwitterIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/twitter.mrs"
+  TelegramIP:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.soxmoox.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/telegram.mrs"
